@@ -14,9 +14,12 @@ class botToken:
         try:
             file = open(token_file, 'r')
             self.setToken(file.readline())
+            print(f"[+] Token {self.getToken()} loaded from file {token_file}")
         except FileNotFoundError:
-            s3 = (os.environ['key_1'])
-            print(s3)
+            print(f"[!] Token can't load from file {token_file}")
+            self.setToken(os.environ['key_1'])
+            print(f"[+] Token {self.getToken()} loaded from system variable key_1")
+            
          
 
 
