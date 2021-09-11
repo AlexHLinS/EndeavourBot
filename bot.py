@@ -1,4 +1,6 @@
 import telebot
+from boto.s3.connection import S3Connection
+from os import environ
 
 class botToken:
     __token_string = ''
@@ -10,8 +12,12 @@ class botToken:
         return self.__token_string
     
     def __init__(self, token_file):
-        file = open(token_file, 'r')
-        self.setToken(file.readline())
+        try:
+            file = open(token_file, 'r')
+            self.setToken(file.readline())
+        except FileNotFoundError:
+            s3 = S3Connection(environ('key_1'))
+            print(s3)
          
 
 
@@ -21,6 +27,7 @@ class hlinsBot:
     
     def setToken(self, token_string):
         self.__token = token_string
+    
     
     def getToken(self):
         return self.__token
