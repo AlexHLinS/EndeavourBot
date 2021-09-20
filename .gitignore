@@ -1,6 +1,12 @@
 # secret's token files
 *.token
 
+# test audio files
+*.ogg
+
+# vscode files
+/.vscode
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
