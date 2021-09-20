@@ -58,6 +58,7 @@ class hlinsBot:
     def parseMessage(self, bot, message):
         #bot.reply_to(message, 'Under construction')
         parcer = messageparcer.messageparcer(message, bot)
+        print(f"[>]recived {message.content_type} from \"{message.from_user.username}\"[id:{message.from_user.id}] ")
         
         
         
