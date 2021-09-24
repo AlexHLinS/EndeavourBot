@@ -61,6 +61,7 @@ class hlinsBot:
             __bot.set_webhook(url = web_hook_url, port = web_hook_port)
             app = web.Application()
             web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
+            print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
             
         except Exception:
             print('Unsuccesfull try of set_webhook method, using pooling method')
