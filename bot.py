@@ -52,7 +52,7 @@ class hlinsBot:
         def receivedMessage(message):
             self.parseMessage(__bot, message)
             pass
-
+        # TODO: change to webhook here
         __bot.polling()
 
     def parseMessage(self, bot, message):
