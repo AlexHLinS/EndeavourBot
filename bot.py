@@ -1,4 +1,5 @@
 import os
+from aiohttp import web
 
 import telebot
 
@@ -53,7 +54,17 @@ class hlinsBot:
             self.parseMessage(__bot, message)
             pass
         # TODO: change to webhook here
-        __bot.polling()
+        try:
+            web_hook_url = os.environ['key_2']+self.getToken()
+            web_hook_port = int(os.environ['key_3'])
+            __bot.remove_webhook()
+            __bot.set_webhook(url = web_hook_url, port = web_hook_port)
+            app = web.Application()
+            web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
+            
+        except Exception:
+            print('Unsuccesfull try of set_webhook method, using pooling method')
+            __bot.polling()
 
     def parseMessage(self, bot, message):
         #bot.reply_to(message, 'Under construction')
