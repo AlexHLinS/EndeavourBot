@@ -54,25 +54,25 @@ class hlinsBot:
             self.parseMessage(__bot, message)
             pass
         # TODO: change to webhook here
-        try:
-            print('starting webhook method ... ')
-            web_hook_url = os.environ['key_2']+self.getToken()
-            print(f'web_hook_url = os.environ[{key_2}]+self.getToken() - ok!')
-            web_hook_port = int(os.environ['key_3'])
-            print(f'web_hook_port = int(os.environ[{key_3}]) - ok!')
-            __bot.remove_webhook()
-            print('__bot.remsove_webhook() - ok!')
-            __bot.set_webhook(url = web_hook_url, port = web_hook_port)
-            print('__bot.set_webhook(url = web_hook_url, port = web_hook_port) - ok!')
-            app = web.Application()
-            print('app = web.Application() - ok!')
-            web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
-            print(f'web.run_app(app, host=os.environ[{key_5}], port=web_hook_port, url_path = self.getToken()) - ok!')
-            print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
-            
-        except Exception:
+        #try:
+        print('starting webhook method ... ')
+        web_hook_url = os.environ['key_2']+self.getToken()
+        print(f'web_hook_url = os.environ[key_2]+self.getToken() - ok!')
+        web_hook_port = int(os.environ['key_3'])
+        print(f'web_hook_port = int(os.environ[key_3]) - ok!')
+        __bot.remove_webhook()
+        print('__bot.remsove_webhook() - ok!')
+        __bot.set_webhook(url = web_hook_url, port = web_hook_port)
+        print('__bot.set_webhook(url = web_hook_url, port = web_hook_port) - ok!')
+        app = web.Application()
+        print('app = web.Application() - ok!')
+        web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
+        print(f'web.run_app(app, host=os.environ[key_5], port=web_hook_port, url_path = self.getToken()) - ok!')
+        print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
+        
+        '''except Exception:
             print('Unsuccesfull try of set_webhook method, using pooling method')
-            __bot.polling()
+            __bot.polling()'''
 
     def parseMessage(self, bot, message):
         #bot.reply_to(message, 'Under construction')
