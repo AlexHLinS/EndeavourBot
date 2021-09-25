@@ -55,12 +55,13 @@ class hlinsBot:
             pass
         # TODO: change to webhook here
         try:
+            print('starting webhook method ... ')
             web_hook_url = os.environ['key_2']+self.getToken()
             print(f'web_hook_url = os.environ[{key_2}]+self.getToken() - ok!')
             web_hook_port = int(os.environ['key_3'])
             print(f'web_hook_port = int(os.environ[{key_3}]) - ok!')
             __bot.remove_webhook()
-            print('__bot.remove_webhook() - ok!')
+            print('__bot.remsove_webhook() - ok!')
             __bot.set_webhook(url = web_hook_url, port = web_hook_port)
             print('__bot.set_webhook(url = web_hook_url, port = web_hook_port) - ok!')
             app = web.Application()
