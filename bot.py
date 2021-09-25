@@ -66,7 +66,7 @@ class hlinsBot:
         print('__bot.set_webhook(url = web_hook_url) - ok!')
         app = web.Application()
         print('app = web.Application() - ok!')
-        web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
+        web.run_app(app, host=os.environ['key_5'], port=web_hook_port, path = self.getToken())
         print(f'web.run_app(app, host=os.environ[key_5], port=web_hook_port, url_path = self.getToken()) - ok!')
         print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
         
