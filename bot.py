@@ -56,11 +56,17 @@ class hlinsBot:
         # TODO: change to webhook here
         try:
             web_hook_url = os.environ['key_2']+self.getToken()
+            print('web_hook_url = os.environ['key_2']+self.getToken() - ok!')
             web_hook_port = int(os.environ['key_3'])
+            print('web_hook_port = int(os.environ['key_3']) - ok!')
             __bot.remove_webhook()
+            print('__bot.remove_webhook() - ok!')
             __bot.set_webhook(url = web_hook_url, port = web_hook_port)
+            print('__bot.set_webhook(url = web_hook_url, port = web_hook_port) - ok!')
             app = web.Application()
+            print('app = web.Application() - ok!')
             web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken())
+            print('web.run_app(app, host=os.environ['key_5'], port=web_hook_port, url_path = self.getToken()) - ok!')
             print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
             
         except Exception:
