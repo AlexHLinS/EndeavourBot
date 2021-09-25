@@ -56,7 +56,7 @@ class hlinsBot:
         # TODO: change to webhook here
         try:
             web_hook_url = os.environ['key_2']+self.getToken()
-            print('web_hook_url = os.environ['key_2']+self.getToken() - ok!')
+            print(f'web_hook_url = os.environ[{key_2}]+self.getToken() - ok!')
             web_hook_port = int(os.environ['key_3'])
             print(f'web_hook_port = int(os.environ[{key_3}]) - ok!')
             __bot.remove_webhook()
