@@ -21,15 +21,15 @@ class botToken:
             file = open(token_file, 'r')
             self.setToken(file.readline())
             if self.__is_log_needed:
-                print(f"[+] Token {self.getToken()} loaded from file {token_file}")
+                print(f'[+] Token {self.getToken()} loaded from file {token_file}')
         except FileNotFoundError:
             if self.__is_log_needed:
-                print(f"[!] Token can't load from file {token_file}")
+                print(f'[!] Token can\'t load from file {token_file}')
             try:
                 self.setToken(os.environ['key_1'])
                 if self.__is_log_needed:
                     print(
-                        f"[+] Token {self.getToken()} loaded from system variable key_1")
+                        f'[+] Token {self.getToken()} loaded from system variable key_1')
             except:
                 return None
 
