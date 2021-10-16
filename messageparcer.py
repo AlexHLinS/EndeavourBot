@@ -1,10 +1,17 @@
 import voicetotext as vtt
 
+import botcommands
 class messageparcer:
 
     __message_raw = None
     VOICE_ANSWER_MESSAGE_HEADER ='В присланном голосовом сообщении было сказано:\n'
     VOICE_MESSAGE_RECIVED_MESSAGE = 'Обратываею присланное голосовое сообщение, это может занять некторое время...'
+
+    def isCommand(self, text):
+        result = False
+        cmd_template = r''
+
+        return result
 
     def getMessageContentType(self):
         return self.__message_raw.content_type
@@ -27,13 +34,16 @@ class messageparcer:
 
     def __init__(self, message, bot):
         self.__message_raw = message
-        # print(f"[>] \'{self.getMessageContentType()}\' from {message.from_user.username}  {message.from_user.language_code} {message}")
+        print(f"[>] \'{self.getMessageContentType()}\' from {message.from_user.username}  {message.from_user.language_code} {message}")
         self.getMessageContentType()
         voice_file = self.getMessageVoiceAttachment(bot)
         if voice_file is not None:
             bot.reply_to(message, self.VOICE_MESSAGE_RECIVED_MESSAGE)
             answer = f'{self.VOICE_ANSWER_MESSAGE_HEADER} {vtt.speechToText(vtt.oggToWav(voice_file), vtt.getLanguageCode(self.__message_raw.from_user.language_code))}'
             bot.reply_to(message, answer)
+        elif message.entities:
+                cmd = botcommands.BotCommand(message.text)
+                bot.reply_to(message, cmd.getData())
         else:
             bot.reply_to(message, f'You\'re sent me {self.getMessageContentType()}')
         return

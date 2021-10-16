@@ -73,6 +73,7 @@ class hlinsBot:
         except Exception:
             print('Unsuccesfull try of set_webhook method, using pooling method')
             __bot.polling()
+            print('Succes! Pooling!')
 
     def parseMessage(self, bot, message):
         #bot.reply_to(message, 'Under construction')

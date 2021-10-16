@@ -1,7 +1,7 @@
 import sys
 from bot import botToken, hlinsBot
 
-TOKEN_FILE_NAME ='bot.token'
+TOKEN_FILE_NAME ='/Users/alex/Documents/ВШЭ/hse_telebot/EndeavourBot/bot.token'
 
 def main():
     tkn = botToken(TOKEN_FILE_NAME)
