@@ -2,6 +2,7 @@ import os
 from aiohttp import web
 
 import telebot
+from flask import Flask, request
 
 import messageparcer
 
@@ -47,14 +48,23 @@ class hlinsBot:
     def __init__(self, token_string):
         self.setToken(token_string)
         __bot = telebot.AsyncTeleBot(token=self.getToken())
+        server = Flask(__name__)
 
         @__bot.message_handler(func=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
                                                                    'text', 'location', 'contact', 'sticker'])
         def receivedMessage(message):
             self.parseMessage(__bot, message)
             pass
+
+        @server.route('/'+__token, methods=['POST'])
+        def getMessage():
+            __bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode('utf-8'))])
+            return "!", 200
+
+        
         # TODO: change to webhook here
         try:
+
             print('starting webhook method ... ')
             web_hook_url = os.environ['key_2']+self.getToken()
             print(f'web_hook_url = os.environ[key_2]+self.getToken() - ok!')
