@@ -38,6 +38,7 @@ class botToken:
 class hlinsBot:
     __token = None
     __bot = None
+    __bot_url = ''
 
     def setToken(self, token_string):
         self.__token = token_string
@@ -61,22 +62,28 @@ class hlinsBot:
             __bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode('utf-8'))])
             return "!", 200
 
+        @server.route('/')
+        def webhook():
+            __bot.remove_webhook()
+            __bot.set_webhook(url=self.__bot_url+self.__token)
+            return "!", 200
         
         # TODO: change to webhook here
         try:
 
             print('starting webhook method ... ')
             web_hook_url = os.environ['key_2']+self.getToken()
+            self.__bot_url = web_hook_url
             print(f'web_hook_url = os.environ[key_2]+self.getToken() - ok!')
             web_hook_port = int(os.environ['key_3'])
             print(f'web_hook_port = int(os.environ[key_3]) - ok!')
-            __bot.remove_webhook()
+            #__bot.remove_webhook()
             print('__bot.remsove_webhook() - ok!')
-            __bot.set_webhook(url = web_hook_url)
+            #__bot.set_webhook(url = web_hook_url)
             print('__bot.set_webhook(url = web_hook_url) - ok!')
-            app = web.Application()
+            #app = web.Application()
             print('app = web.Application() - ok!')
-            web.run_app(app, host=os.environ['key_5'], port=web_hook_port, path = self.getToken())
+           # web.run_app(app, host=os.environ['key_5'], port=web_hook_port, path = self.getToken())
             print(f'web.run_app(app, host=os.environ[key_5], port=web_hook_port, url_path = self.getToken()) - ok!')
             print(f'Succes! Webhook method started at {web_hook_url}:{web_hook_port}!')
         
