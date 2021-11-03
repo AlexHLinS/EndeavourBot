@@ -1,14 +1,12 @@
 import sys
 import os
 from flask import Flask, request
-from whitenoise import WhiteNoise
 from bot import botToken, hlinsBot
 import telebot
 
 TOKEN_FILE_NAME ='bot.token'
 TOKEN = 'unsetted'
 bot_server = Flask(__name__)
-bot_server.wsgi_app = WhiteNoise(bot_server.wsgi_app, root='static/') #
 bot = 0
 
 
@@ -23,6 +21,10 @@ def webhook():
     bot.set_webhook(url=os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/') + TOKEN) #
     return "!", 200
 
+@bot.message_handler(unc=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
+                                                                   'text', 'location', 'contact', 'sticker'])
+def reply_to_message(message):
+    bot.parseMessage(bot,message)
 
 
 if __name__ == '__main__':
