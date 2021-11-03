@@ -7,7 +7,7 @@ import telebot
 TOKEN_FILE_NAME ='bot.token'
 TOKEN = 'unsetted'
 bot_server = Flask(__name__)
-bot = 0
+bot = telebot.AsyncTeleBot(TOKEN)
 
 
 @bot_server.route('/' + TOKEN, methods=['POST'])
