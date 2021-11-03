@@ -1,5 +1,4 @@
 import os
-from aiohttp import web
 
 import telebot
 
