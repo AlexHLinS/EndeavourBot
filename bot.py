@@ -49,7 +49,7 @@ class hlinsBot:
     def __init__(self, token_string):
         self.setToken(token_string)
         __bot = telebot.AsyncTeleBot(token=self.getToken())
-        server = Flask(__name__)
+        #server = Flask(__name__)
 
         @__bot.message_handler(func=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
                                                                    'text', 'location', 'contact', 'sticker'])

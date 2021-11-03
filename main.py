@@ -2,12 +2,11 @@ import sys
 import os
 from flask import Flask, request
 from bot import botToken, hlinsBot
+import telebot
 
 TOKEN_FILE_NAME ='bot.token'
 TOKEN = 'unsetted'
-
 bot_server = Flask(__name__)
-
 bot = 0
 
 
@@ -18,8 +17,8 @@ def getMessage():
 
 @bot_server.route("/")
 def webhook():
-    bot_server.remove_webhook()
-    bot_server.set_webhook(url=os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/') + TOKEN) #
+    bot.remove_webhook()
+    bot.set_webhook(url=os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/') + TOKEN) #
     return "!", 200
 
 
