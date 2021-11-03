@@ -8,7 +8,7 @@ import telebot
 TOKEN_FILE_NAME ='bot.token'
 TOKEN = 'unsetted'
 bot_server = Flask(__name__)
-bot_server.wsgi_app = WhiteNoise(bot_server.wsgi_app, root='static/')
+bot_server.wsgi_app = WhiteNoise(bot_server.wsgi_app, root='static/') #
 bot = 0
 
 
