@@ -1,12 +1,14 @@
 import sys
 import os
 from flask import Flask, request
+from whitenoise import WhiteNoise
 from bot import botToken, hlinsBot
 import telebot
 
 TOKEN_FILE_NAME ='bot.token'
 TOKEN = 'unsetted'
 bot_server = Flask(__name__)
+app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
 bot = 0
 
 
