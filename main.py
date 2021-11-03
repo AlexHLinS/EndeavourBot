@@ -24,7 +24,7 @@ def webhook():
 
 
 if __name__ == '__main__':
-    host = str(os.environ.get('key_5', '0.0.0.0'))
+    host = "0.0.0.0"
     port=int(os.environ.get('key_3', 5001))
     tkn = botToken(TOKEN_FILE_NAME)
     TOKEN = tkn.getToken()
