@@ -1,13 +1,34 @@
 import sys
+import os
+from flask import Flask, request
 from bot import botToken, hlinsBot
 
-TOKEN_FILE_NAME ='/Users/alex/Documents/ВШЭ/hse_telebot/EndeavourBot/bot.token'
+TOKEN_FILE_NAME ='bot.token'
+TOKEN = 'unsetted'
 
-def main():
-    tkn = botToken(TOKEN_FILE_NAME)
-    print(tkn.getToken())
-    bot = hlinsBot(tkn.getToken())
-    return 0
+bot_server = Flask(__name__)
+
+bot = 0
+
+
+@bot_server.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
+
+@bot_server.route("/")
+def webhook():
+    bot_server.remove_webhook()
+    bot_server.set_webhook(url=os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/') + TOKEN) #
+    return "!", 200
+
+
 
 if __name__ == '__main__':
-    main()
+    host = str(os.environ.get('key_5', '0.0.0.0'))
+    port=int(os.environ.get('key_3', 5001))
+    tkn = botToken(TOKEN_FILE_NAME)
+    TOKEN = tkn.getToken()
+    bot = hlinsBot(TOKEN)
+    print(TOKEN)
+    bot_server.run(host=host, port=port)

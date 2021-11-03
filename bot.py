@@ -2,7 +2,7 @@ import os
 from aiohttp import web
 
 import telebot
-from flask import Flask, request
+
 
 import messageparcer
 
@@ -57,19 +57,8 @@ class hlinsBot:
             self.parseMessage(__bot, message)
             pass
 
-        @server.route('/'+__token, methods=['POST'])
-        def getMessage():
-            __bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode('utf-8'))])
-            return "!", 200
-
-        @server.route('/')
-        def webhook():
-            __bot.remove_webhook()
-            __bot.set_webhook(url=self.__bot_url+self.__token)
-            return "!", 200
-        
         # TODO: change to webhook here
-        try:
+        '''try:
 
             print('starting webhook method ... ')
             web_hook_url = os.environ['key_2']+self.getToken()
@@ -90,7 +79,7 @@ class hlinsBot:
         except Exception:
             print('Unsuccesfull try of set_webhook method, using pooling method')
             __bot.polling()
-            print('Succes! Pooling!')
+            print('Succes! Pooling!')'''
 
     def parseMessage(self, bot, message):
         #bot.reply_to(message, 'Under construction')

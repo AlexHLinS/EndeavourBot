@@ -1,6 +1,9 @@
 # secret's token files
 *.token
 
+* local backups of python modules
+_*.py
+
 # test audio files
 *.ogg
 
