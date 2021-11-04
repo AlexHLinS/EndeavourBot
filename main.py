@@ -5,9 +5,15 @@ from bot import botToken, hlinsBot
 import telebot
 
 TOKEN_FILE_NAME ='bot.token'
-TOKEN = 'unsetted'
+TOKEN = botToken(TOKEN_FILE_NAME).getToken()
+
 bot_server = Flask(__name__)
-bot = telebot.AsyncTeleBot(TOKEN)
+bot = telebot.TeleBot(TOKEN)
+
+@bot.message_handler(unc=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
+                                                                   'text', 'location', 'contact', 'sticker'])
+def reply_to_message(message):
+    bot.send_message(message.chat.id, message.text)
 
 
 @bot_server.route('/' + TOKEN, methods=['POST'])
@@ -21,17 +27,10 @@ def webhook():
     bot.set_webhook(url=os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/') + TOKEN) #
     return "!", 200
 
-@bot.message_handler(unc=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
-                                                                   'text', 'location', 'contact', 'sticker'])
-def reply_to_message(message):
-    bot.parseMessage(bot,message)
+
 
 
 if __name__ == '__main__':
     host = "0.0.0.0"
     port=int(os.environ.get('key_3', 5001))
-    tkn = botToken(TOKEN_FILE_NAME)
-    TOKEN = tkn.getToken()
-    bot = hlinsBot(TOKEN)
-    print(TOKEN)
     bot_server.run(host=host, port=port)
