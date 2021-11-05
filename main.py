@@ -13,7 +13,7 @@ bot_url = os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/')
 @bot.message_handler(func=lambda message: message.text is not None)
 def reply_to_message(message):
     print(f'Recieved message from {message.author.username}')
-    bot.send_message(message.chat.id, message.text)
+    bot.reply_to(message, message.text)
 
 
 @server.route('/' + TOKEN, methods=['POST'])
