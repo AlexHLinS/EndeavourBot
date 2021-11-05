@@ -12,6 +12,7 @@ bot_url = os.environ.get('key_2', 'https://hsetelebot.herokuapp.com/')
 # Если строка на входе непустая, то бот повторит ее
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def reply_to_message(message):
+    print(f'Recieved message from {message.author.username}')
     bot.send_message(message.chat.id, message.text)
 
 @server.route('/' + TOKEN, methods=['POST'])
