@@ -1,5 +1,4 @@
 import sys
-from flask import Flask, request
 from bot import botToken, hlinsBot
 from dbworker import postgresSQLconnectionInfo, postgresSQLBotDB
 
