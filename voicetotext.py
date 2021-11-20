@@ -6,7 +6,7 @@ from pydub import AudioSegment
 OGG_FILE_NAME = 'example.ogg'
 M4A_FILE_NAME = 'example.m4a'
 
-ERROR_MESSAGE_SPEECH_TO_TEXT = "Can't recognize this ((("
+ERROR_MESSAGE_SPEECH_TO_TEXT = "К сожалению, не могу это перевести в текст ((("
 
 languages = {'ru':'ru-RU'}
 

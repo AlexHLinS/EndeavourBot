@@ -1,6 +1,7 @@
 import voicetotext as vtt
 
 import botcommands
+import dbworker
 class messageparcer:
 
     __message_raw = None
@@ -32,9 +33,10 @@ class messageparcer:
         
         return None
 
-    def __init__(self, message, bot):
+    def __init__(self, message, bot, database):
         self.__message_raw = message
         print(f"[>] \'{self.getMessageContentType()}\' from {message.from_user.username}  {message.from_user.language_code} {message}")
+        database.addUser(user_id=message.from_user.id, user_name=message.from_user.username, alias_name='')
         self.getMessageContentType()
         voice_file = self.getMessageVoiceAttachment(bot)
         if voice_file is not None:

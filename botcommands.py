@@ -3,20 +3,16 @@ import parcerforcovidinfo
 
 class BotCommandsHandler:
 
+    def getTextFromFile(filename):
+        with open(filename, 'r') as msg:
+            message = msg.read()
+        return message
+
     def getHelp(*args):
-        help_message = 'Добро пожаловать!\nОсновной моей задачей \
-                        является сохранение Вашего душевного спокойствия путем \
-                        снятия напряжения при получении от кого-то из контактов\
-                        ненависных голосовых сообщений.\n \
-                        Как это работает: Вы получаете голосовое сообщение, но вместо того,\
-                        чтобы гневаться и проклинать того, кто его прислал - пересылаете мне,\
-                        после чего, используя всю мощь и достижение науки и техники, перевожу\
-                             его в текстовое сообщение и присылаю Вам )'
-        
-        return help_message
+        return BotCommandsHandler.getTextFromFile('messages/help.message')
 
     def getInfo(*args):
-        return "Info message!"
+        return BotCommandsHandler.getTextFromFile('messages/info.message')
 
     def getCovidInfo(*args):
         url = 'https://www.worldometers.info/coronavirus/'
@@ -32,7 +28,7 @@ class BotCommandsHandler:
 class BotCommand:
 
     __commands_list = {'help': BotCommandsHandler.getHelp,
-                       'info': BotCommandsHandler.getHelp,
+                       'info': BotCommandsHandler.getInfo,
                        'covidinfo': BotCommandsHandler.getCovidInfo}
 
     __help_text = 'This is the help text for this bot'

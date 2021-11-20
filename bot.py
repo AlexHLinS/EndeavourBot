@@ -4,6 +4,7 @@ import telebot
 
 
 import messageparcer
+import dbworker
 
 
 class botToken:
@@ -45,7 +46,8 @@ class hlinsBot:
     def getToken(self):
         return self.__token
 
-    def __init__(self, token_string):
+    def __init__(self, token_string, database:dbworker.postgresSQLBotDB):
+        self.database = database
         self.setToken(token_string)
         __bot = telebot.AsyncTeleBot(token=self.getToken())
         #server = Flask(__name__)
@@ -53,7 +55,7 @@ class hlinsBot:
         @__bot.message_handler(func=lambda m: True, content_types=['audio', 'photo', 'voice', 'video', 'document',
                                                                    'text', 'location', 'contact', 'sticker'])
         def receivedMessage(message):
-            self.parseMessage(__bot, message)
+            self.parseMessage(__bot, message, self.database)
             pass
 
         # TODO: change to webhook here
@@ -80,9 +82,9 @@ class hlinsBot:
         __bot.polling()
         print('Succes! Pooling!')
 
-    def parseMessage(self, bot, message):
+    def parseMessage(self, bot, message, database):
         #bot.reply_to(message, 'Under construction')
-        parcer = messageparcer.messageparcer(message, bot)
+        parcer = messageparcer.messageparcer(message, bot, database)
         print(f"[>]recived {message.content_type} from \"{message.from_user.username}\"[id:{message.from_user.id}] ")
         
         
