@@ -14,6 +14,9 @@ class BotCommandsHandler:
     def getInfo(*args):
         return BotCommandsHandler.getTextFromFile('messages/info.message')
 
+    def startBot(self):
+        return self.getInfo()
+
     def getCovidInfo(*args):
         url = 'https://www.worldometers.info/coronavirus/'
         if len(args) == 1:
