@@ -22,7 +22,7 @@ def getDataForCountry(country):
 
     for line in dataF:
         if line[1].lower().find(country.lower()) != -1:
-            result += f'Данные по {line[1]}:\n - всего случаев: {line[2]} (новых {line[3]});\n -Cмертность {line[4]} (новых {line[5]});\n - Выздоровивших {line[6]}.'
+            result += f'Данные по {line[1]}:\n - всего случаев: {line[2]} (новых {line[3]});\n - смертность {line[4]} (новых {line[5]});\n - выздоровивших {line[6]}.'
 
     return result
 
