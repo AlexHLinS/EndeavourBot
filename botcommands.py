@@ -14,7 +14,7 @@ class BotCommandsHandler:
     def getInfo(*args):
         return BotCommandsHandler.getTextFromFile('messages/info.message')
 
-    def startBot(self):
+    def startBot(*args):
         return self.getInfo()
 
     def getCovidInfo(*args):
@@ -29,6 +29,7 @@ class BotCommandsHandler:
 class BotCommand:
 
     __commands_list = {'help': BotCommandsHandler.getHelp,
+                       'start': BotCommandsHandler.startBot,
                        'info': BotCommandsHandler.getInfo,
                        'covidinfo': BotCommandsHandler.getCovidInfo}
 
