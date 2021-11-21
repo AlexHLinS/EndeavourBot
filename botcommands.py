@@ -20,8 +20,6 @@ class BotCommandsHandler:
             data = parcerforcovidinfo.getDataForCountry('russia')
             url = f'{data} \n' + f'Info got from {url} '+str(*args[0])
 
-            
-
         return url
 
 
@@ -42,7 +40,7 @@ class BotCommand:
         command = self.__command_text.split()[0][1:]
         params = self.__command_text.split()[1:]
 
-        if  command in self.__commands_list.keys():
+        if command in self.__commands_list.keys():
             return self.__commands_list[command](params)
         else:
             return UNKNOWN_COMMAND_TEXT

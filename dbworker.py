@@ -92,7 +92,7 @@ class postgresSQLBotDB:
         '''
         req_string = f"SELECT alias_name FROM users WHERE telegram_user_id=\'{user_id}\'"
         res = self.sendRequest(req_string)
-        if  res in [False, None] or len(res) < 1:
+        if res in [False, None] or len(res) < 1:
             return False
         return True
 
@@ -105,9 +105,9 @@ class postgresSQLBotDB:
             \n- True if user added succesfull or update_time field is updates
             \n- False if error occured
         '''
-    
+
         if self.isUserExist(user_id):
-            if alias_name != '':    
+            if alias_name != '':
                 req_string = f' UPDATE users \
                                 SET update_time=NOW(), \
                                     alias_name=\'{alias_name}\' \
@@ -135,7 +135,7 @@ class postgresSQLBotDB:
                             FROM    voicetotextresults
                             WHERE   md5sum=\'{md5hash}\''''
         res = self.sendRequest(req_string)
-        if  res in [False, None] or len(res) < 1:
+        if res in [False, None] or len(res) < 1:
             return False
         return True
 
@@ -153,7 +153,7 @@ class postgresSQLBotDB:
         req_string = f'''   SELECT content_text
                             FROM voicetotextresults
                             WHERE md5sum = \'{md5hash}\''''
-        
+
         return self.sendRequest(req_string)
 
     def addTranscribationRequest(self, user_id, md5hash, forward_from):
@@ -164,6 +164,7 @@ class postgresSQLBotDB:
                                                 \'{md5hash}\',
                                                 \'{forward_from}\') '''
         return self.sendRequest(req_string)
+
 
 def main():
     psqlcinf = postgresSQLconnectionInfo('db.token')

@@ -22,7 +22,8 @@ class botToken:
             file = open(token_file, 'r')
             self.setToken(file.readline())
             if self.__is_log_needed:
-                print(f'[+] Token {self.getToken()} loaded from file {token_file}')
+                print(
+                    f'[+] Token {self.getToken()} loaded from file {token_file}')
         except FileNotFoundError:
             if self.__is_log_needed:
                 print(f'[!] Token can\'t load from file {token_file}')
@@ -46,7 +47,7 @@ class hlinsBot:
     def getToken(self):
         return self.__token
 
-    def __init__(self, token_string, database:dbworker.postgresSQLBotDB):
+    def __init__(self, token_string, database: dbworker.postgresSQLBotDB):
         self.database = database
         self.setToken(token_string)
         __bot = telebot.AsyncTeleBot(token=self.getToken())
@@ -64,7 +65,5 @@ class hlinsBot:
     def parseMessage(self, bot, message, database):
         #bot.reply_to(message, 'Under construction')
         parcer = messageparcer.messageparcer(message, bot, database)
-        print(f"[>]recived {message.content_type} from \"{message.from_user.username}\"[id:{message.from_user.id}] ")
-        
-        
-        
+        print(
+            f"[>]recived {message.content_type} from \"{message.from_user.username}\"[id:{message.from_user.id}] ")
