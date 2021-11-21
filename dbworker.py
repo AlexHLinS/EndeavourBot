@@ -117,19 +117,57 @@ class postgresSQLBotDB:
                                 SET update_time=NOW()\
                                 WHERE telegram_user_id=\'{user_id}\''
         else:
-            req_string = f' INSERT INTO users \
-                            (telegram_user_id, telegram_user_name, alias_name, create_time, update_time) \
-                            VALUES (\'{user_id}\', \'{user_name}\', \'{alias_name}\', NOW(), NOW())'
+            req_string = f''' INSERT INTO users 
+                                        (telegram_user_id, 
+                                        telegram_user_name, 
+                                        alias_name, 
+                                        create_time, 
+                                        update_time) 
+                            VALUES (\'{user_id}\',  
+                                    \'{user_name}\',  
+                                    \'{alias_name}\',  
+                                        NOW(), 
+                                        NOW())'''
+        return self.sendRequest(req_string)
+
+    def isTranscribationResultExist(self, md5hash):
+        req_string = f'''   SELECT  content_text
+                            FROM    voicetotextresults
+                            WHERE   md5sum=\'{md5hash}\''''
+        res = self.sendRequest(req_string)
+        if  res in [False, None] or len(res) < 1:
+            return False
+        return True
+
+    def addTranscribationResult(self, md5hash, content_text):
+        ''' Adding transcribation result to DB
+        '''
+        if self.isTranscribationResultExist(md5hash):
+            return False
+        req_string = f'''   INSERT INTO voicetotextresults 
+                                        (md5sum, content_text, create_time)
+                            VALUES      (\'{md5hash}\' , \'{content_text}\' , NOW()) '''
+        return self.sendRequest(req_string)
+
+    def getTranscribationResult(self, md5hash):
+        req_string = f'''   SELECT content_text
+                            FROM voicetotextresults
+                            WHERE md5sum = \'{md5hash}\''''
+        
+        return self.sendRequest(req_string)
+
+    def addTranscribationRequest(self, user_id, md5hash, forward_from):
+        req_string = f'''  INSERT INTO voicetotextrequests 
+                                                (create_time, telegram_user_id, md5sum, forward_from_id)
+                           VALUES               (NOW(), 
+                                                \'{user_id}\', 
+                                                \'{md5hash}\',
+                                                \'{forward_from}\') '''
         return self.sendRequest(req_string)
 
 def main():
     psqlcinf = postgresSQLconnectionInfo('db.token')
     db = postgresSQLBotDB(psqlcinf)
-
-
-    print(db.addUser('12334', 'vova', 'new vvovva'))
-    print(db.isUserExist('test_id'))
-    print(db.sendRequest('SELECT DISTINCT * FROM users'))
 
     return 0
 
