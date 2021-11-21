@@ -68,5 +68,5 @@ class messageparcer:
             bot.reply_to(message, cmd.getData())
         else:
             bot.reply_to(
-                message, f'You\'re sent me {self.getMessageContentType()}')
+                message, f'К сожалению я пока еще слишком юн и зелен чтобы ответить на это сообщение, но буду стараться развиваться активнее в этом направлении! )')
         return
