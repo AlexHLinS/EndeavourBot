@@ -21,7 +21,7 @@ class BotCommandsHandler:
         url = 'https://www.worldometers.info/coronavirus/'
         if len(args) == 1:
             data = parcerforcovidinfo.getDataForCountry('russia')
-            url = f'{data} \n' + f'Info got from {url} '+str(*args[0])
+            url = f'{data} \n' + f'Источник: {url} '+str(*args[0])
 
         return url
 
