@@ -22,7 +22,7 @@ class messageparcer:
 
     def getMessageVoiceAttachment(self, bot):
 
-        if self.__message_raw.content_type == 'voice':
+        if self.__message_raw.content_type in ['voice'] :
             file_info = bot.get_file(self.__message_raw.voice.file_id)
             file_info = file_info.wait()
             # print(file_info.file_path)
@@ -32,6 +32,18 @@ class messageparcer:
             with open(downloaded_file_name, 'wb') as new_file:
                 new_file.write(downloaded_file)
                 return(downloaded_file_name)
+
+        if self.__message_raw.content_type in ['audio'] :
+            file_info = bot.get_file(self.__message_raw.audio.file_id)
+            file_info = file_info.wait()
+            # print(file_info.file_path)
+            downloaded_file = bot.download_file(file_info.file_path)
+            downloaded_file = downloaded_file.wait()
+            downloaded_file_name = str(self.__message_raw.audio.file_id)+'.m4a'
+            with open(downloaded_file_name, 'wb') as new_file:
+                new_file.write(downloaded_file)
+                return(downloaded_file_name)
+
 
         return None
 
@@ -49,7 +61,16 @@ class messageparcer:
             if database.isTranscribationResultExist(md5hash=crc):
                 answer = database.getTranscribationResult(crc)
             else:
-                answer = f'{vtt.speechToText(vtt.oggToWav(voice_file), vtt.getLanguageCode(self.__message_raw.from_user.language_code))}'
+                if voice_file[-3:] == 'ogg':
+                    #answer = f'{vtt.speechToText(vtt.oggToWav(voice_file), vtt.getLanguageCode(self.__message_raw.from_user.language_code))}'
+                    wav_file = vtt.oggToWav(voice_file)
+                elif voice_file[-3:] == 'm4a':
+                    #answer = f'{vtt.speechToText(vtt.m4aToWav(voice_file), vtt.getLanguageCode(self.__message_raw.from_user.language_code))}'
+                    wav_file = vtt.m4aToWav(voice_file)
+                else:
+                    return
+                res = vtt.speechToText(wav_file_name=wav_file,language='ru-RU')
+                answer = f'{res}'
                 database.addTranscribationResult(
                     md5hash=crc, content_text=answer)
                 answer = f'{self.VOICE_ANSWER_MESSAGE_HEADER}'+answer

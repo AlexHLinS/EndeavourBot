@@ -15,7 +15,7 @@ class BotCommandsHandler:
         return BotCommandsHandler.getTextFromFile('messages/info.message')
 
     def startBot(*args):
-        return BotCommandsHandler.getInfo()
+        return BotCommandsHandler.getTextFromFile('messages/start.message')
 
     def getCovidInfo(*args):
         url = 'https://www.worldometers.info/coronavirus/'

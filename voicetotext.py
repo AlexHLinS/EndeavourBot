@@ -6,7 +6,7 @@ from pydub import AudioSegment
 OGG_FILE_NAME = 'example.ogg'
 M4A_FILE_NAME = 'example.m4a'
 
-ERROR_MESSAGE_SPEECH_TO_TEXT = "К сожалению, не могу это перевести в текст ((("
+ERROR_MESSAGE_SPEECH_TO_TEXT = "К сожалению, не могу это перевести в текст..."
 
 languages = {'ru': 'ru-RU'}
 
@@ -40,6 +40,30 @@ def oggToWav(ogg_file_name):
         return None
     return result_file_name
 
+def m4aToWav(m4a_file_name):
+    
+    try:
+        print(f'[m4aToWav] received {m4a_file_name}')
+
+        result_file_name = fspath(m4a_file_name + '.wav')
+
+        print(f'[m4aToWav] {m4a_file_name} converted to {result_file_name}')
+        print(
+            f'[m4aToWav] load audio segment from {m4a_file_name} ...', end='')
+
+        phrase = AudioSegment.from_file(m4a_file_name)
+        print('Done!')
+        print(
+            f'[m4aToWav] export from {m4a_file_name} to {result_file_name} ...', end='')
+
+        phrase.export(result_file_name, format='wav')
+
+        print('Done!')
+
+        remove(m4a_file_name)
+    except Exception:
+        return None
+    return result_file_name
 
 def speechToText(wav_file_name, language):
     if wav_file_name == None:
@@ -82,7 +106,7 @@ def remVoiceFiles(filenames):
 
 def main():
 
-    wav_file = oggToWav(OGG_FILE_NAME)
+    wav_file = m4aToWav('AUDIO-2021-11-21-12-24-15.m4a')
 
     result = speechToText(wav_file, "ru-RU")
 
