@@ -59,8 +59,11 @@ class hlinsBot:
             self.parseMessage(__bot, message, self.database)
             pass
 
-        __bot.polling()
-        print('Succes! Pooling!')
+        try:
+            __bot.polling()
+        except:
+            print('[Bot panic!]Restarting!')
+            os.execlp('python',os.cwd+'/main.py')
 
     def parseMessage(self, bot, message, database):
         #bot.reply_to(message, 'Under construction')
