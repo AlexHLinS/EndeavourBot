@@ -6,6 +6,8 @@ _*.py
 
 # test audio files
 *.ogg
+*.wav
+*.m4a
 
 # vscode files
 /.vscode
