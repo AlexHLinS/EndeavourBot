@@ -39,6 +39,7 @@ class postgresSQLconnectionInfo:
     def __init__(self, filename):
         ''' PostgresSQL base connection info object load and store \
             connection data from \'filename\' file
+            if it not exists - try to get it from environment variables
         '''
         try:
             with open(filename) as f:
