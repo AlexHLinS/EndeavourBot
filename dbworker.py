@@ -1,6 +1,7 @@
 import json
 import psycopg2
 from psycopg2 import sql
+import os
 
 
 class postgresSQLconnectionInfo:
@@ -39,13 +40,21 @@ class postgresSQLconnectionInfo:
         ''' PostgresSQL base connection info object load and store \
             connection data from \'filename\' file
         '''
-        with open(filename) as f:
-            dump = json.load(f)
-            self.setHost(dump['host'])
-            self.setPort(dump['port'])
-            self.setUsername(dump['username'])
-            self.setPassword(dump['password'])
-            self.setDatabase(dump['database'])
+        try:
+            with open(filename) as f:
+                dump = json.load(f)
+                self.setHost(dump['host'])
+                self.setPort(dump['port'])
+                self.setUsername(dump['username'])
+                self.setPassword(dump['password'])
+                self.setDatabase(dump['database'])
+        except FileNotFoundError:
+            self.setHost(os.environ['db_host'])
+            self.setPort(os.environ['db_port'])
+            self.setUsername(os.environ['db_user'])
+            self.setPassword(os.environ['db_pass'])
+            self.setDatabase(os.environ['db_name'])
+
 
 
 class postgresSQLBotDB:
