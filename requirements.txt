@@ -7,3 +7,4 @@ pyTelegramBotAPI==4.0.0
 speechrecognition==3.8.1
 pydub==0.25.1
 requests==2.26.0
+psycopg2-binary==2.9.2
