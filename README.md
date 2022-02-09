@@ -1,4 +1,4 @@
-**Endeavour Bot**
+**Endeavour Bot [https://t.me/ndvrBot]**
 
 Telegram bot as a home work for Python for data analyse course.
 
